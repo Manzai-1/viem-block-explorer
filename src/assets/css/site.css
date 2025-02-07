@@ -48,35 +48,36 @@ a {
   width: 100%;
 }
 
-#transaction-form {
+.form {
   max-width: 400px;
   margin: auto;
+  margin-bottom: 1rem;
   padding: 1rem;
-  border: 2px solid black;
+  border: 3px solid var(--primary-color);
   border-radius: 10px;
 }
 
-#transaction-form .form-control {
+.form .form-control {
   margin-bottom: 1rem;
 }
 
-#transaction-form .form-control label {
+.form .form-control label {
   display: block;
 }
 
-#transaction-form .form-control input {
+.form .form-control input {
   width: 100%;
   padding: 0.65rem;
   border: solid 1px #ddd;
   border-radius: 0.2rem;
 }
 
-#transaction-form input:focus {
+.form input:focus {
   outline: none !important;
   border: solid 1px #ef6c00;
 }
 
-#transaction-form h3 {
+.form h2,h3 {
   margin-top: 0.5rem;
   text-align: center;
 }

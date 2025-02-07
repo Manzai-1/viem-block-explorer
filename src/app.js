@@ -1,6 +1,7 @@
 import { Client } from "./utils/client.js";
 
-const searchForm = document.querySelector('#transaction-form');
+const searchForm = document.querySelector('#search-form');
+const transactionForm = document.querySelector('#transaction-form');
 const addressField = document.querySelector('#address');
 const blockNumberField = document.querySelector('#latest-block');
 const balanceField = document.querySelector('#balance');
@@ -25,5 +26,12 @@ const handleSearch = async(e)=>{
     displayBalance(await client.walletBalance(addressField.value));
 }
 
+const handleCreateTransaction = async(e)=>{
+    e.preventDefault();
+    const formData = new FormData(transactionForm);
+    client.createTransaction(Object.fromEntries(formData));
+}
+
 searchForm.addEventListener('submit', handleSearch);
+transactionForm.addEventListener('submit', handleCreateTransaction);
 document.addEventListener("DOMContentLoaded", initApp);
