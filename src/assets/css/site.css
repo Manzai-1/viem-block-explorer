@@ -132,3 +132,14 @@ a {
   display: flex;
   flex-direction: column;
 }
+
+.message-div{
+  text-align: center;
+  border: 2px solid var(--primary-color);
+  background-color: rgb(178, 255, 178);
+  margin-bottom: 0.5rem;
+}
+
+.message-div.error{
+  background-color: rgb(255, 128, 128);
+}

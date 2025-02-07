@@ -26,6 +26,7 @@
     </header>
     <main>
       <h1 class="page-title" id="latest-block">Blocks: </h1>
+      <div id="header-error"></div>
       <section>
         <form id="search-form" class="form">
           <h2>Get Wallet Balance</h2>
@@ -39,6 +40,7 @@
             </div>
             <button class="btn btn-rounded">Search</button>
             <h3 id="balance">Current Balance: </h3>
+            <div id="balance-error"></div>
         </form>
       </section>
       <section>
@@ -69,6 +71,8 @@
               placeholder="Value in Ether" />
           </div>
           <button class="btn btn-rounded">Create</button>
+          <div id="transaction-error">
+          </div>
         </form>
       </section>
     </main>

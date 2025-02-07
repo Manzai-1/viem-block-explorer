@@ -1,4 +1,5 @@
 import { Client } from "./utils/client.js";
+import { createMessage } from "./utils/dom.js";
 
 const searchForm = document.querySelector('#search-form');
 const transactionForm = document.querySelector('#transaction-form');
@@ -10,11 +11,14 @@ let client = undefined;
 
 const initApp = ()=>{
     client = new Client();
-    client.lastBlock().then(blockNr => displayBlockNumber(blockNr));
+    loadBlockNumber();
 }
 
 const loadBlockNumber = async()=>{
     const response = await client.lastBlock();
+    response.success ? 
+        displayBlockNumber(response.value) : 
+        displayMessage('header-error',response.value);
 }
 
 const displayBlockNumber = (blockNr)=>{
@@ -25,20 +29,30 @@ const displayBalance = (balance)=>{
     balanceField.textContent = `Current Balance: ${balance} ETH`;
 }
 
-const displayError = (elemID, error)=>{
-    // const elem = document.querySelector(`#${elemID}`);
-    console.error(elemID, error);
+const displayMessage = (divID, message, isError=true)=>{
+    const div = document.querySelector(`#${divID}`);
+    div.appendChild(createMessage(message, isError));
+    
+    setTimeout(()=>{
+        div.innerHTML = '';
+    }, 5000);
 }
 
 const handleSearch = async(e)=>{
     e.preventDefault();
-    displayBalance(await client.walletBalance(addressField.value));
+    const response = await client.walletBalance(addressField.value);
+    response.success ? 
+        displayBalance(response.value) : 
+        displayMessage('balance-error',response.value);
 }
 
 const handleCreateTransaction = async(e)=>{
     e.preventDefault();
     const formData = new FormData(transactionForm);
-    client.createTransaction(Object.fromEntries(formData));
+    const response = await client.createTransaction(Object.fromEntries(formData));
+    response.success ? 
+        displayMessage('transaction-error',response.value, false) : 
+        displayMessage('transaction-error',response.value);
 }
 
 searchForm.addEventListener('submit', handleSearch);
