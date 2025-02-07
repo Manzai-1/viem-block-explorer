@@ -16,18 +16,30 @@ export class Client {
     async lastBlock(){
         try{
             const blockNr = await this.public.getBlockNumber();
-            return parseInt(blockNr);
+            return {
+                success: true,
+                value: parseInt(blockNr)
+            };
         }catch(error){
-            return error;
+            return {
+                success: false,
+                value: error
+            };
         }
     }
 
     async walletBalance(address){
         try{
             const wei = await this.public.getBalance({address});
-            return parseFloat(formatEther(wei)).toFixed(2);
+            return {
+                success: true,
+                value: parseFloat(formatEther(wei)).toFixed(2)
+            }
         }catch(error){
-            return error;
+            return {
+                success: false,
+                value: error
+            };
         }
     }
 
@@ -39,7 +51,15 @@ export class Client {
                 value: parseEther(obj.value)
             });
         }catch(error){
-            return error;
+            return {
+                success: false,
+                value: error
+            };
         }
+
+        return {
+            success: true,
+            value: 'Transaction Added To Chain'
+        };
     }
 }
