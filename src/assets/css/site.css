@@ -51,6 +51,9 @@ a {
 #transaction-form {
   max-width: 400px;
   margin: auto;
+  padding: 1rem;
+  border: 2px solid black;
+  border-radius: 10px;
 }
 
 #transaction-form .form-control {
@@ -71,6 +74,11 @@ a {
 #transaction-form input:focus {
   outline: none !important;
   border: solid 1px #ef6c00;
+}
+
+#transaction-form h3 {
+  margin-top: 0.5rem;
+  text-align: center;
 }
 
 .main-image {
