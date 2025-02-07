@@ -13,12 +13,21 @@ const initApp = ()=>{
     client.lastBlock().then(blockNr => displayBlockNumber(blockNr));
 }
 
+const loadBlockNumber = async()=>{
+    const response = await client.lastBlock();
+}
+
 const displayBlockNumber = (blockNr)=>{
     blockNumberField.textContent = `Total Blocks: ${blockNr}`;
 }
 
 const displayBalance = (balance)=>{
     balanceField.textContent = `Current Balance: ${balance} ETH`;
+}
+
+const displayError = (elemID, error)=>{
+    // const elem = document.querySelector(`#${elemID}`);
+    console.error(elemID, error);
 }
 
 const handleSearch = async(e)=>{

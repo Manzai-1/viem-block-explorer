@@ -1,21 +1,34 @@
 import { createPublicClient, createWalletClient, http, formatEther, parseEther } from 'https://esm.sh/viem';
 import { localhost } from "https://esm.sh/viem/chains";
 
+const clientObject = {
+    chain: localhost, 
+    transport: http('http://localhost:7545')
+};
+
 
 export class Client {
     constructor(){
-        const clientObject = {chain: localhost, transport: http('http://localhost:7545')}
         this.public = createPublicClient(clientObject);
         this.wallet = createWalletClient(clientObject);
     }
 
     async lastBlock(){
-        return parseInt(await this.public.getBlockNumber());
+        try{
+            const blockNr = await this.public.getBlockNumber();
+            return parseInt(blockNr);
+        }catch(error){
+            return error;
+        }
     }
 
     async walletBalance(address){
-        const wei = await this.public.getBalance({address});
-        return parseFloat(formatEther(wei)).toFixed(2);
+        try{
+            const wei = await this.public.getBalance({address});
+            return parseFloat(formatEther(wei)).toFixed(2);
+        }catch(error){
+            return error;
+        }
     }
 
     async createTransaction(obj){
