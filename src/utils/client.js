@@ -3,7 +3,7 @@ import { localhost } from "https://esm.sh/viem/chains";
 
 const clientObject = {
     chain: localhost, 
-    transport: http('http://localhost:75451')
+    transport: http('http://localhost:7545')
 };
 
 

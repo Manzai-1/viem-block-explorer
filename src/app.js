@@ -32,7 +32,7 @@ const displayBalance = (balance)=>{
 const displayMessage = (divID, message, isError=true)=>{
     const div = document.querySelector(`#${divID}`);
     div.appendChild(createMessage(message, isError));
-    
+
     setTimeout(()=>{
         div.innerHTML = '';
     }, 5000);
@@ -40,6 +40,7 @@ const displayMessage = (divID, message, isError=true)=>{
 
 const handleSearch = async(e)=>{
     e.preventDefault();
+
     const response = await client.walletBalance(addressField.value);
     response.success ? 
         displayBalance(response.value) : 
@@ -48,11 +49,14 @@ const handleSearch = async(e)=>{
 
 const handleCreateTransaction = async(e)=>{
     e.preventDefault();
+
     const formData = new FormData(transactionForm);
     const response = await client.createTransaction(Object.fromEntries(formData));
     response.success ? 
         displayMessage('transaction-error',response.value, false) : 
         displayMessage('transaction-error',response.value);
+
+    loadBlockNumber();
 }
 
 searchForm.addEventListener('submit', handleSearch);
