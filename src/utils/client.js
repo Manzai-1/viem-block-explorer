@@ -1,14 +1,14 @@
 import { createPublicClient, createWalletClient, http, formatEther, parseEther } from 'https://esm.sh/viem';
 import { localhost } from "https://esm.sh/viem/chains";
 
-const clientObject = {
+const ganache = {
     chain: localhost, 
     transport: http('http://localhost:7545')
 };
 
 
 export class Client {
-    constructor(){
+    constructor(clientObject = ganache){
         this.public = createPublicClient(clientObject);
         this.wallet = createWalletClient(clientObject);
     }
@@ -50,16 +50,15 @@ export class Client {
                 to: obj.to,
                 value: parseEther(obj.value)
             });
+            return {
+                success: true,
+                value: 'Transaction Added To Chain'
+            };
         }catch(error){
             return {
                 success: false,
                 value: error
             };
         }
-
-        return {
-            success: true,
-            value: 'Transaction Added To Chain'
-        };
     }
 }
