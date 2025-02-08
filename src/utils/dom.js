@@ -1,7 +1,12 @@
-export const createMessage = (message, isError=true)=>{
+export const createErrorMessage = (message)=>{
+    const div = createMessage(message);
+    div.classList.add('error');
+    return div;
+}
+
+export const createMessage = (message)=>{
     const div = createElem('div');
     div.classList.add('message-div');
-    if(isError) div.classList.add('error');
 
     const p = createElem('p');
     p.textContent = message;

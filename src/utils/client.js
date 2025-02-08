@@ -6,7 +6,6 @@ const ganache = {
     transport: http('http://localhost:7545')
 };
 
-
 export class Client {
     constructor(clientObject = ganache){
         this.public = createPublicClient(clientObject);
@@ -16,30 +15,18 @@ export class Client {
     async lastBlock(){
         try{
             const blockNr = await this.public.getBlockNumber();
-            return {
-                success: true,
-                value: parseInt(blockNr)
-            };
+            return this.response(true, parseInt(blockNr));
         }catch(error){
-            return {
-                success: false,
-                value: error
-            };
+            return this.response(false, error);
         }
     }
 
     async walletBalance(address){
         try{
             const wei = await this.public.getBalance({address});
-            return {
-                success: true,
-                value: parseFloat(formatEther(wei)).toFixed(2)
-            }
+            return this.response(true, parseFloat(formatEther(wei)).toFixed(2));
         }catch(error){
-            return {
-                success: false,
-                value: error
-            };
+            return this.response(false, error);
         }
     }
 
@@ -50,15 +37,13 @@ export class Client {
                 to: obj.to,
                 value: parseEther(obj.value)
             });
-            return {
-                success: true,
-                value: 'Transaction Added To Chain'
-            };
+            return this.response(true, 'Transaction Added To Chain');
         }catch(error){
-            return {
-                success: false,
-                value: error
-            };
+            return this.response(false, error);
         }
+    }
+
+    response(bool, val){
+        return { success: bool, value: val }
     }
 }
